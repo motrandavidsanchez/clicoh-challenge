@@ -8,6 +8,7 @@ class Product(models.Model):
 
     name = models.CharField(max_length=100)
     price = models.FloatField()
+    image = models.ImageField(blank=True, null=True)
     stock = models.IntegerField()
 
     def __str__(self):
