@@ -1,0 +1,28 @@
+# Requeriments base.
+
+django==3.1.3
+djangorestframework==3.12.1
+djangorestframework-jsonapi==4.0.0
+django-rest-framework-social-oauth2==1.1.0
+django-environ==0.4.5
+django-cors-headers==3.5.0
+django-extensions==3.0.9
+django-widget-tweaks==1.4.8
+django-mptt==0.11.0
+django-filter==2.4.0
+django-querysetsequence==0.14
+
+# Database
+psycopg2-binary==2.8.6
+
+# Sugerencia de Django para manejar los fields ImageField.
+Pillow==8.2.0
+
+# Testing
+pytest==6.2.2
+pytest-django==4.1.0
+pytest-mock==3.5.1
+
+# Development
+ipython==7.20.0
+django-debug-toolbar==3.1.1

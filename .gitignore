@@ -1,0 +1,120 @@
+celerybeat-schedule
+
+*.log
+
+*.py[codt]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+logs
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+coverage.xml
+junit.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Complexity
+output/*.html
+output/*/index.html
+
+# Sphinx
+docs/_build
+
+.webassets-cache
+
+# Virtualenvs
+venv
+
+# intellij
+*.ipr
+*.iml
+*.iws
+
+# vim
+*.sw[o,p]
+
+.DS_Store
+
+# bower packages
+.sass-cache/
+.idea/.name
+.idea/scopes/scope_settings.xml
+.idea/encodings.xml
+.idea/workspace.xml
+
+# models
+models.png
+
+.idea/*
+
+*.db
+
+secret.key
+
+.bash_history
+.vagrant/*
+
+# ?
+.cache
+src
+
+# Configuration
+.env
+
+# Virtual Environment
+.venv
+tmp
+Procfile.dev
+
+# Cython .C files (precompilation)
+*.c
+
+__pycache__/
+
+# Logs nginx
+deployment/logs/
+deployment/circus.ini
+deployment/nginx.conf
+
+.pytest_cache/
+
+project/settings/production.py
+project/static/*
+project/media/*
+
+
+# Tests
+project/test_:memory:
+test_:memory:
+
+# Directorio de backups
+database_backups
+project/test_media/
