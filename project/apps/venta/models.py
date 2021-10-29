@@ -23,7 +23,7 @@ class Order(models.Model):
     date_time = models.DateTimeField()
 
     def __str__(self):
-        return self.date_time
+        return str(self.date_time)
 
 
 class OrderDetail(models.Model):
@@ -31,7 +31,7 @@ class OrderDetail(models.Model):
         verbose_name = 'Order Detail'
         verbose_name_plural = 'Orders Detail'
 
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_detail')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     cuantity = models.IntegerField()
 
