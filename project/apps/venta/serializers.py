@@ -22,7 +22,10 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('date_time', 'order_detail', 'total')
+        fields = ('date_time', 'total', 'order_detail')
+        extra_kwargs = {
+            'order_detail': {'required': False},
+        }
 
     total = serializers.SerializerMethodField(method_name='get_total')
 

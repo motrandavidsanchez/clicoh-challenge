@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 
@@ -20,7 +22,7 @@ class Order(models.Model):
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
 
-    date_time = models.DateTimeField()
+    date_time = models.DateTimeField(default=datetime.datetime.now())
 
     def __str__(self):
         return str(self.date_time)
