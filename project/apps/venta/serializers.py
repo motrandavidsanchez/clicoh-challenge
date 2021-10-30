@@ -22,8 +22,16 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('date_time', 'order_detail')
+        fields = ('date_time', 'order_detail', 'total')
+
+    total = serializers.SerializerMethodField(method_name='get_total')
 
     included_serializers = {
         'order_detail': OrderDetailSerializer
     }
+
+    def get_total(self, order):
+        total = 0
+        for orderdetail in order.order_detail.all():
+            total = total + orderdetail.product.price * orderdetail.cuantity
+        return total
