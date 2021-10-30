@@ -22,19 +22,25 @@ class OrderDetailViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         product = serializer.validated_data['product']
-        # Controla Stock
-        if product.stock <= 0:
-            raise ValidationError('No hay suficiente stock.')
+        cuantity = serializer.validated_data['cuantity']
 
         # Controla cantidad
-        if serializer.validated_data['cuantity'] <= 0:
+        if cuantity <= 0:
             raise ValidationError('La cantidad debe ser mayor a cero.')
 
         # Controla que el producto no se repita
         order_detail = OrderDetail.objects.filter(order=serializer.validated_data['order'].id, product=product.id)
-
-        if order_detail.exists:
+        if order_detail.exists():
             raise ValidationError('El producto ya se encuentra en la orden.')
+
+        # Controla y Resta Stock de producto
+        if product.stock <= 0:
+            raise ValidationError('No hay suficiente stock.')
+        else:
+            product.stock = product.stock - cuantity
+            product.save()
+
+        return serializer.save()
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -42,3 +48,11 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     filter_backends = (DjangoFilterBackend,)
     permission_classes = (IsAuthenticated,)
+
+    def perform_destroy(self, instance):
+        for orderdetail in instance.order_detail.all():
+            product = orderdetail.product
+            product.stock = product.stock + orderdetail.cuantity
+            product.save()
+
+        return instance
