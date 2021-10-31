@@ -1,6 +1,6 @@
 import pytest
 from venta.tests.fixture import create_order, create_order_detail, create_products, create_user
-from venta.utils import get, post
+from venta.utils import get, post, delete
 
 
 @pytest.mark.django_db
@@ -24,7 +24,8 @@ def test_detail_order(create_order, create_order_detail):
     data = response.json()['data']
 
     assert data['attributes']['date_time'] == '2021-10-30T10:30:00-03:00'
-    assert data['attributes']['total'] == 420.0
+    assert data['attributes']['total_arg'] == 420.0
+    assert data['attributes']['total_usd'] == 2.13
 
 
 @pytest.mark.django_db
@@ -48,3 +49,12 @@ def test_create_order(create_order):
 
     assert data['attributes']['date_time'] == '2021-10-30T12:44:00-03:00'
 
+
+@pytest.mark.django_db
+def test_delete_order(create_order):
+    order_one, order_two, order_three = create_order
+    usuario = create_user(username='david')
+
+    response = delete(f'/api/v1/order/{order_one.id}/', user_logged=usuario)
+
+    assert response.status_code == 204
