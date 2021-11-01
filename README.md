@@ -1,5 +1,4 @@
 # clicoh-challenge
-==================
 
 ### Descripción
 Pueba de conocimiento con Django Rest Framework
