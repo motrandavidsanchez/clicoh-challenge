@@ -46,7 +46,7 @@ class OrderDetailViewSet(viewsets.ModelViewSet):
 
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.all()
+    queryset = Order.objects.all().prefetch_related('order_detail', 'order_detail__product')
     serializer_class = OrderSerializer
     permission_classes = (IsAuthenticated,)
 

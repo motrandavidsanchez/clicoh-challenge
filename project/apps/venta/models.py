@@ -28,6 +28,11 @@ class Order(models.Model):
         return str(self.date_time)
 
 
+class OrderDetailManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().select_related('product', 'order')
+
+
 class OrderDetail(models.Model):
     class Meta:
         verbose_name = 'Order Detail'
@@ -36,6 +41,8 @@ class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_detail')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     cuantity = models.IntegerField()
+
+    objects = OrderDetailManager()
 
     def __str__(self):
         return f'{self.order} -> {self.product}'
