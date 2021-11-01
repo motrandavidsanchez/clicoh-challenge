@@ -28,7 +28,7 @@ DATABASES = {
 # DEBUG
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = env.bool('DJANGO_DEBUG', False)
+DEBUG = env.bool('DJANGO_DEBUG', True)
 
 DJANGO_APPS = (
     'django.contrib.admin',
@@ -150,7 +150,7 @@ TEMPLATES = [
 
 ADMINS = [administrador.split(':') for administrador in env.list('DJANGO_ADMINS', default=[])]
 
-ACTIVAR_HERRAMIENTAS_DEBUGGING = env.bool('ACTIVAR_HERRAMIENTAS_DEBUGGING', default=False)
+ACTIVAR_HERRAMIENTAS_DEBUGGING = env.bool('ACTIVAR_HERRAMIENTAS_DEBUGGING', default=True)
 if ACTIVAR_HERRAMIENTAS_DEBUGGING:
     INTERNAL_IPS = ['127.0.0.1']
     INSTALLED_APPS += ('debug_toolbar', 'django_extensions')
