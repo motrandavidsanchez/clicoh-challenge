@@ -1,10 +1,11 @@
 import sys
 
+import django_heroku
 import environ
 from django.utils.translation import gettext_lazy as _
 
-ROOT_DIR = environ.Path(__file__) - 3
-PROJECT_DIR = ROOT_DIR.path('project')
+BASE_DIR = environ.Path(__file__) - 3
+PROJECT_DIR = BASE_DIR.path('project')
 APPS_DIR = PROJECT_DIR.path('apps')
 
 sys.path.insert(0, str(APPS_DIR))
@@ -12,7 +13,7 @@ sys.path.insert(0, str(APPS_DIR))
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
 #  patch for https://github.com/joke2k/django-environ/issues/119
-env_file = str(ROOT_DIR.path('.env'))
+env_file = str(BASE_DIR.path('.env'))
 env.read_env(env_file)
 
 SECRET_KEY = env('DJANGO_SECRET_KEY', default='CHANGEME!!!')
@@ -156,3 +157,5 @@ if ACTIVAR_HERRAMIENTAS_DEBUGGING:
     MIDDLEWARE = ('debug_toolbar.middleware.DebugToolbarMiddleware',) + MIDDLEWARE
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] += ('rest_framework.renderers.BrowsableAPIRenderer',)
     REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] += ('rest_framework.authentication.SessionAuthentication',)
+
+django_heroku.settings(locals())
