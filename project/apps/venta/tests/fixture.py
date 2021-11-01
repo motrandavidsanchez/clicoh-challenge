@@ -45,7 +45,13 @@ def create_products():
         stock=5
     )
 
-    return product_one, product_two, product_three
+    product_four, _ = Product.objects.get_or_create(
+        name='Cartera',
+        price=230.0,
+        stock=0
+    )
+
+    return product_one, product_two, product_three, product_four
 
 
 @pytest.fixture()
@@ -68,7 +74,7 @@ def create_order():
 
 @pytest.fixture()
 def create_order_detail(create_products, create_order):
-    product_one, product_two, product_three = create_products
+    product_one, product_two, product_three, product_four = create_products
     order_one, order_two, order_three = create_order
 
     order_detail_one, _ = OrderDetail.objects.get_or_create(

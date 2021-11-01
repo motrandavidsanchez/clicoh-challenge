@@ -1,4 +1,6 @@
 import pytest
+
+from venta.models import Product
 from venta.tests.fixture import create_order, create_order_detail, create_products, create_user
 from venta.utils import get, post, delete
 
@@ -58,3 +60,21 @@ def test_delete_order(create_order):
     response = delete(f'/api/v1/order/{order_one.id}/', user_logged=usuario)
 
     assert response.status_code == 204
+
+
+@pytest.mark.django_db
+def test_delete_order_restore_stock(create_order, create_products, create_order_detail):
+    order_one, order_two, order_three = create_order
+    usuario = create_user(username='david')
+
+    product = Product.objects.get(id=3)
+
+    assert product.stock == 5
+
+    response = delete(f'/api/v1/order/{order_two.id}/', user_logged=usuario)
+
+    assert response.status_code == 204
+
+    product.refresh_from_db()
+
+    assert product.stock == 7

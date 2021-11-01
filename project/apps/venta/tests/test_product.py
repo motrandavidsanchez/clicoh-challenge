@@ -17,6 +17,7 @@ def test_get_products(create_products):
     assert data[0]['attributes']['name'] == 'Sombrero negro'
     assert data[1]['attributes']['name'] == 'Zapatos Blancos'
     assert data[2]['attributes']['name'] == 'Remeras'
+    assert data[3]['attributes']['name'] == 'Cartera'
 
 
 @pytest.mark.django_db
@@ -47,7 +48,7 @@ def test_create_product():
 
 @pytest.mark.django_db
 def test_update_product(create_products):
-    product_one, product_two, product_three = create_products
+    product_one, product_two, product_three, product_four = create_products
     usuario = create_user(username='david')
 
     data = {
@@ -71,7 +72,7 @@ def test_update_product(create_products):
 
 @pytest.mark.django_db
 def test_delete_product(create_products):
-    product_one, product_two, product_three = create_products
+    product_one, product_two, product_three, product_four = create_products
     usuario = create_user(username='david')
 
     response = delete(f'/api/v1/product/{product_two.id}/', user_logged=usuario)
